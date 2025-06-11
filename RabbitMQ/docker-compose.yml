@@ -1,0 +1,16 @@
+version: '3.8' # Boa prática: define a versão da sintaxe do Compose
+
+services: # Este é o bloco principal para seus serviços
+  rabbitmq: # Definição do serviço RabbitMQ
+    image: rabbitmq:3-management # Use uma tag válida do Docker Hub, por exemplo, 3-management ou 3.12-management
+    container_name: rabbitmq
+    restart: always
+    ports:
+      - "5672:5672"   # Porta AMQP para comunicação com clientes
+      - "15672:15672" # Porta para a interface de gerenciamento web (http://localhost:15672)
+    volumes:
+      - ./dados:/var/lib/rabbitmq/ # Mapeia um volume local para persistir os dados do RabbitMQ
+    environment:
+      # Use RABBITMQ_DEFAULT_USER e RABBITMQ_DEFAULT_PASS para definir usuário e senha
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=123456
